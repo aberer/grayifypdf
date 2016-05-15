@@ -14,4 +14,4 @@ target_compile_features(fillpolestest PRIVATE cxx_range_for)
 target_compile_features(libfillpoles PRIVATE cxx_range_for)
 
 install(TARGETS fillpoles DESTINATION bin)
-install(FILES greyifypdf DESTINATION /opt/bin)
+install(PROGRAMS greyifypdf DESTINATION bin)
