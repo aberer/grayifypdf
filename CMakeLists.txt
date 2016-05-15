@@ -1,6 +1,5 @@
 cmake_minimum_required (VERSION 3.5)
-set(CMAKE_VERBOSE_MAKEFILE on)
-project (FillPoles CXX)
+project (GreyifyPDF CXX)
 
 add_library(libfillpoles fillpoles.cxx)
 
@@ -13,3 +12,6 @@ target_link_libraries(fillpolestest libfillpoles)
 target_compile_features(fillpoles PRIVATE cxx_range_for)
 target_compile_features(fillpolestest PRIVATE cxx_range_for)
 target_compile_features(libfillpoles PRIVATE cxx_range_for)
+
+install(TARGETS fillpoles DESTINATION bin)
+install(FILES greyifypdf DESTINATION /opt/bin)

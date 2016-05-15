@@ -28,7 +28,7 @@ if [[ "$(which pdftk)" == "" ]]; then
 fi
 
 if [[ "$(which fillpoles)" == "" ]]; then
-    echo "fillpoles not found! Please install."
+    echo "fillpoles not found! Did you set $PATH to /opt/bin/ or your install destination respectively?."
     exit 1
 fi
 
