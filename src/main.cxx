@@ -54,5 +54,8 @@ main(int argc, char *argv[])
         std::exit(1);
     }
 
+    fillGaps(firstPage, lastPage, "A", "B", setOfPoles, std::cout) ;
+    std::cout << std::endl;
+
     return 0;
 }

@@ -10,7 +10,7 @@ std::ostream&
 insertDelimiterIfNecessary(std::ostream& out, bool &hasBeenWrittenTo)
 {
     if (hasBeenWrittenTo)
-        out << ",";
+        out << " ";
     else
         hasBeenWrittenTo = true;
 

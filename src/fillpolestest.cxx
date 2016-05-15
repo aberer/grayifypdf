@@ -26,17 +26,17 @@ TEST_CASE("fill poles works", "[fillpoles]")
 
     ss.str("");
     fillGaps(1,100, "A", "B", {50}, ss);
-    REQUIRE(ss.str() == "A1-49,B50,A51-100");
+    REQUIRE(ss.str() == "A1-49 B50 A51-100");
 
     ss.str("");
     fillGaps(1,100, "A", "B", {1}, ss);
-    REQUIRE(ss.str() == "B1,A2-100");
+    REQUIRE(ss.str() == "B1 A2-100");
 
     ss.str("");
     fillGaps(1,100, "A", "B", {100}, ss);
-    REQUIRE(ss.str() == "A1-99,B100");
+    REQUIRE(ss.str() == "A1-99 B100");
 
     ss.str("");
     fillGaps(1,100, "A", "B", {50,52}, ss);
-    REQUIRE(ss.str() == "A1-49,B50,A51,B52,A53-100");
+    REQUIRE(ss.str() == "A1-49 B50 A51 B52 A53-100");
 }
