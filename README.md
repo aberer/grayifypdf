@@ -1,4 +1,4 @@
-# Readme
+# Description
 
 USAGE: ./greyifypdf pdffile cpagesfile
 
