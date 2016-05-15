@@ -1,0 +1,60 @@
+#! /bin/bash
+
+read -r -d '' USAGE <<EOF
+
+USAGE: $0 pdffile cpagesfile
+
+Recreates pdffile with a defined set of color pages. Pages not
+included in this set are converted to greyscale.
+
+The file cpagesfile is a simple file that contains the color pages
+(one page number per line).
+
+EOF
+
+
+if [ $# != 2 ]; then
+    echo -e "$USAGE"
+    exit 1
+fi
+
+pdffile=$1
+cpagesfile=$2
+pdfbase=$(basename $pdffile .pdf)
+
+if [[ "$(which pdftk)" == "" ]]; then
+    echo "pdftk not found! Please install."
+    exit 1
+fi
+
+if [[ "$(which fillpoles)" == "" ]]; then
+    echo "fillpoles not found! Please install."
+    exit 1
+fi
+
+numpages=$(pdftk $pdffile dump_data | grep NumberOfPages | cut -f 2 -d ' ')
+
+pagesspec=$(fillpoles 1 $numpages $cpagesfile)
+
+if [[ $? -ne 0 ]]; then
+    echo "fillpoles failed, giving up."
+    exit 1
+fi
+
+pdfgrey=$pdfbase-allgrey.pdf
+
+echo "Converting pdf to greyscale (output: $pdfgrey).."
+gs \
+   -sDEVICE=pdfwrite \
+   -sProcessColorModel=DeviceGray \
+   -sColorConversionStrategy=Gray \
+   -dOverrideICC \
+   -o $pdfgrey \
+   -f $pdffile
+echo "done."
+
+echo "Merging pdf file with defined set of color pages.."
+cmd="pdftk A=$pdfgrey B=$pdffile cat $pagesspec output $pdfbase-RESULT-greyified.pdf"
+echo $cmd
+eval $cmd
+echo "done."
